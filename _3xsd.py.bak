@@ -286,7 +286,7 @@ class _Z_EpollServer(StreamServer):
 			pass
 
 	def clean_zidles(self, fd):
-		for _host, _idle_list in list(self.zidles.items()):
+		for _host, _idle_list in self.zidles.items():
 			if fd in _idle_list:
 				self.zidles[_host].remove(fd)
 
@@ -312,31 +312,31 @@ class _Z_EpollServer(StreamServer):
 		if o == None:
 			return
 		elif o == "resume":
-			print((self.resume))
+			print(self.resume)
 		elif o == "zconns":
-			print((self.zconns))
+			print(self.zconns)
 		elif o == "cb_conns":
-			print((self.cb_conns))
+			print(self.cb_conns)
 		elif o == "xcache":
-			print((self.xcache))
+			print(self.xcache)
 		elif o == "zcache":
-			print((self.zcache))
+			print(self.zcache)
 		elif o == "zcache_stat":
-			print((self.zcache_stat))
+			print(self.zcache_stat)
 		elif o == "z_path":
-			print((self.z_path))
+			print(self.z_path)
 		elif o == "z_resp_header":
-			print((self.z_resp_header))
+			print(self.z_resp_header)
 
 	def o_udts(self):
 		print("-------------------------------------")
-		print(("conns", self.conns))
-		print(("zsess", self.zsess))
-		print(("ztuns", self.ztuns))
-		print(("s_tuns", self.s_tuns))
-		print(("s_udts", self.s_udts))
-		print(("upolls", self.upolls))
-		print(("udt_send_buf", self.udt_send_buf))
+		print("conns", self.conns)
+		print("zsess", self.zsess)
+		print("ztuns", self.ztuns)
+		print("s_tuns", self.s_tuns)
+		print("s_udts", self.s_udts)
+		print("upolls", self.upolls)
+		print("udt_send_buf", self.udt_send_buf)
 
 	def o_mem(self):
 		#if os.path.exists('/tmp/3wdd_dumpit'):
@@ -583,10 +583,10 @@ class _Z_EpollServer(StreamServer):
 				else:
 					if _tun.fileno() == -1:
 						#tunnel down
-						print(("Thread forward_tun_udt of tunnel:", _session, "exit.."))
+						print("Thread forward_tun_udt of tunnel:", _session, "exit..")
 						break
 		except:
-			print(("Thread forward_tun_udt of tunnel", _session, "exit.."))
+			print("Thread forward_tun_udt of tunnel", _session, "exit..")
 			raise
 
 	def forward_udt_tun(self, _tun, _usock, _encrypt_mode, _compress, _session):  #ttt
@@ -602,10 +602,10 @@ class _Z_EpollServer(StreamServer):
 			if e.errno == errno.EINVAL:
 				#illegal data, maybe tunnel peer shutdown suddenly
 				_usock.close()
-			print(("Thread forward_udt_tun of tunnel", _session, "exit.."))
+			print("Thread forward_udt_tun of tunnel", _session, "exit..")
 			raise
 		except:
-			print(("Thread forward_udt_tun of tunnel", _session, "exit.."))
+			print("Thread forward_udt_tun of tunnel", _session, "exit..")
 			raise
 
 	def forward_udt_relay(self, _usock, _session):
@@ -637,7 +637,7 @@ class _Z_EpollServer(StreamServer):
 			else:
 				self.handler.udt_relay_thread_stat[_to] = False
 
-			print(("Thread forward_udt_relay of tunnel", _session, "exit.."))
+			print("Thread forward_udt_relay of tunnel", _session, "exit..")
 			raise
 
 	def check_3wd(self): #333
@@ -693,7 +693,7 @@ class _Z_EpollServer(StreamServer):
 						#relaunch the udt relay thread, due to one side may be downed before
 						_tun, _usock, _addr = self.zsess.get(_session, (None, None, None))
 						if _usock:
-							print(("Re-launching relay tunnel", _session))
+							print("Re-launching relay tunnel", _session)
 							if self.handler.io_mode == self.handler.IO_NONBLOCK:
 								_n = _usock.UDTSOCKET.UDTSOCKET % self.udt_thread_limit
 								if self.upolls[_n] is None:
@@ -2017,7 +2017,7 @@ class _xDNSHandler:
 				#elif hasattr(_rs.city, "name"):
 				#	print "peer city name:", _rs.city.name
 
-				print(("peer:", self.addr[0], "geo:", self.query_name_geo, "cc:", _cc))
+				print("peer:", self.addr[0], "geo:", self.query_name_geo, "cc:", _cc)
 			except:
 				pass
 
@@ -3288,10 +3288,10 @@ class _xZHandler(_xHandler, _xDNSHandler):
 
 	def out_conns_stats(self):
 			print("--------------------------------------------------------------------------")
-			print(("zconns:", self.server.zconns))
-			print(("zconns_stat:", self.server.zconns_stat))
-			print(("zidles:", self.server.zidles))
-			print(("cb_conns:", self.server.cb_conns))
+			print("zconns:", self.server.zconns)
+			print("zconns_stat:", self.server.zconns_stat)
+			print("zidles:", self.server.zidles)
+			print("cb_conns:", self.server.cb_conns)
 			print("--------------------------------------------------------------------------")
 
 	def check_zconns(self):
@@ -3933,9 +3933,9 @@ class _xWHandler:
 
 
 			if _do_relay:
-				print(("UDT relay tunnel", session_name, "launched, no tun device, io_mode:", self.io_mode))
+				print("UDT relay tunnel", session_name, "launched, no tun device, io_mode:", self.io_mode)
 			else:
-				print(("UDT tunnel", session_name, "launched, local", _tun.addr, "peer", _tun.dstaddr, "mtu", _tun.mtu, "encryption:", _encrypt_mode, "compress:", _compress, "io_mode:", self.io_mode))
+				print("UDT tunnel", session_name, "launched, local", _tun.addr, "peer", _tun.dstaddr, "mtu", _tun.mtu, "encryption:", _encrypt_mode, "compress:", _compress, "io_mode:", self.io_mode)
 
 		except:
 			if conn:
@@ -3973,9 +3973,9 @@ class _xWHandler:
 				self.route_metric[_route][session_name] = -1
 
 		if _tun:
-			print(("Destroying", ''.join([session_name, '.', str(self.server._worker_id)]), _tun, _conn, _addr))
+			print("Destroying", ''.join([session_name, '.', str(self.server._worker_id)]), _tun, _conn, _addr)
 		else:
-			print(("Destroying", ''.join([session_name, '.', str(self.server._worker_id)]), _conn, _addr))
+			print("Destroying", ''.join([session_name, '.', str(self.server._worker_id)]), _conn, _addr)
 
 		if _conn and _addr:
 			if _tun:
